@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulaire de Lead</title>
+    <title>Devlink : Formulaire de Lead Radiateurs à inertie</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -36,28 +36,31 @@
 <h2>Formulaire de Lead</h2>
 <form id="leadForm">
     <label for="nom">Nom</label>
-    <input type="text" id="nom" name="nom" required>
+    <input type="text" id="nom" name="nom" value="Martin" required>
 
     <label for="prenom">Prénom</label>
-    <input type="text" id="prenom" name="prenom" required>
+    <input type="text" id="prenom" name="prenom" value="Matin" required>
 
-    <label for="telephone">Téléphone</label>
-    <input type="tel" id="telephone" name="telephone" required>
-
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" required>
+    <label for="civilite">Civilité</label>
+    <input type="text" id="civilite" name="civilite" value="Monsieur" required>
 
     <label for="adresse">Adresse</label>
-    <input type="text" id="adresse" name="adresse" required>
+    <input type="text" id="adresse" name="adresse" value="36 Place de Forbin" required>
 
-    <label for="codePostal">Code Postal</label>
-    <input type="text" id="codePostal" name="codePostal" required>
+    <label for="cp">Code Postal</label>
+    <input type="text" id="cp" name="cp" value="13330" required>
 
     <label for="ville">Ville</label>
-    <input type="text" id="ville" name="ville" required>
+    <input type="text" id="ville" name="ville" value="La Barben" required>
+
+    <label for="telephone">Téléphone</label>
+    <input type="tel" id="telephone" name="telephone" value="0654455445" required>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" value="martinmatin1@gmail.com" required>
 
     <label for="disponibilite">Disponibilité</label>
-    <input type="text" id="disponibilite" name="disponibilite" required>
+    <input type="text" id="disponibilite" name="disponibilite" value="" required>
 
     <button type="submit">Envoyer</button>
 </form>
@@ -69,7 +72,7 @@
         const formData = new FormData(this);
         const params = new URLSearchParams(formData).toString();
 
-        const url = `http://ws.ga-media.fr/services?GA_part=EGNSDGGC&GA_ws=WBJQUCEP&ExternalId=49820313&${params}`;
+        const url = `http://ws.ga-media.fr/services?GA_part=EGNSDGGC&GA_ws=WBJQUCEP&ExternalId=49820313&DateFormulaire=${new Date().toISOString()}&${params}`;
 
         fetch(url, {
             method: 'GET'
