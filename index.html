@@ -98,7 +98,7 @@
         <label for="email">Email</label>
         <input type="email" id="email" name="email" required>
 
-        <button type="submit">Envoyer</button>
+        <button type="submit">Envoyer les données</button>
     </form>
 
     <p id="result"></p>
@@ -122,7 +122,8 @@
         const telephone = encodeURIComponent(document.getElementById('telephone').value);
         const email = encodeURIComponent(document.getElementById('email').value);
 
-        const url = `http://ws.ga-media.fr/services?GA_part=${GA_part}&GA_ws=${GA_ws}&ExternalId=${ExternalId}&DateFormulaire=${dateFormulaire}&nom=${nom}&prenom=${prenom}&civilite=${civilite}&adresse=${adresse}&cp=${cp}&ville=${ville}&telephone=${telephone}&email=${email}`;
+        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+        const url = `${proxyUrl}http://ws.ga-media.fr/services?GA_part=${GA_part}&GA_ws=${GA_ws}&ExternalId=${ExternalId}&DateFormulaire=${dateFormulaire}&nom=${nom}&prenom=${prenom}&civilite=${civilite}&adresse=${adresse}&cp=${cp}&ville=${ville}&telephone=${telephone}&email=${email}`;
 
         fetch(url, {
             method: 'GET'
@@ -137,6 +138,7 @@
             document.getElementById('result').innerText = 'Données envoyées avec succès !';
         })
         .catch(error => {
+            console.error('Détails de l\'erreur:', error);
             document.getElementById('result').innerText = `Erreur lors de l'envoi des données: ${error.message}`;
         });
     });
