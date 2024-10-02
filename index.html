@@ -98,7 +98,7 @@
         <label for="email">Email</label>
         <input type="email" id="email" name="email" required>
 
-        <button type="submit">Envoyer les données</button>
+        <button type="submit">Envoyer</button>
     </form>
 
     <p id="result"></p>
@@ -113,10 +113,16 @@
         const ExternalId = "49820313";
         const dateFormulaire = new Date().toISOString();
 
-        const formData = new FormData(this);
-        const params = new URLSearchParams(formData).toString();
+        const nom = encodeURIComponent(document.getElementById('nom').value);
+        const prenom = encodeURIComponent(document.getElementById('prenom').value);
+        const civilite = encodeURIComponent(document.getElementById('civilite').value);
+        const adresse = encodeURIComponent(document.getElementById('adresse').value);
+        const cp = encodeURIComponent(document.getElementById('cp').value);
+        const ville = encodeURIComponent(document.getElementById('ville').value);
+        const telephone = encodeURIComponent(document.getElementById('telephone').value);
+        const email = encodeURIComponent(document.getElementById('email').value);
 
-        const url = `http://ws.ga-media.fr/services?GA_part=${GA_part}&GA_ws=${GA_ws}&ExternalId=${ExternalId}&DateFormulaire=${dateFormulaire}&${params}`;
+        const url = `http://ws.ga-media.fr/services?GA_part=${GA_part}&GA_ws=${GA_ws}&ExternalId=${ExternalId}&DateFormulaire=${dateFormulaire}&nom=${nom}&prenom=${prenom}&civilite=${civilite}&adresse=${adresse}&cp=${cp}&ville=${ville}&telephone=${telephone}&email=${email}`;
 
         fetch(url, {
             method: 'GET'
