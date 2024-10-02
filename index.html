@@ -33,7 +33,7 @@
 </head>
 <body>
 
-<h2>Formulaire de Lead Radiateurs à inertie</h2>
+<h2>Formulaire de Lead : Radiateurs à inertie</h2>
 <form id="leadForm">
     <label for="nom">Nom</label>
     <input type="text" id="nom" name="nom" required>
@@ -74,16 +74,22 @@
 
         const url = `http://ws.ga-media.fr/services?GA_part=EGNSDGGC&GA_ws=WBJQUCEP&ExternalId=49820313&DateFormulaire=${new Date().toISOString()}&${params}`;
 
+        // Nouveau bloc fetch
         fetch(url, {
             method: 'GET'
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erreur ${response.status}: ${response.statusText}`);
+            }
+            return response.json();
+        })
         .then(data => {
             alert('Données envoyées avec succès !');
             console.log(data);
         })
         .catch(error => {
-            alert('Erreur lors de l\'envoi des données.');
+            alert(`Erreur lors de l'envoi des données: ${error.message}`);
             console.error(error);
         });
     });
