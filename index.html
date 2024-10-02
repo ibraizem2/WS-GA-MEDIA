@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Devlink : Formulaire de Lead Radiateurs à inertie</title>
+    <title>Formulaire de Saisie des Leads RI</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -33,7 +33,7 @@
 </head>
 <body>
 
-<h2>Formulaire de Lead : Radiateurs à inertie</h2>
+<h2>Formulaire de Saisie des Leads RI</h2>
 <form id="leadForm">
     <label for="nom">Nom</label>
     <input type="text" id="nom" name="nom" required>
@@ -43,7 +43,7 @@
 
     <label for="civilite">Civilité</label>
     <select id="civilite" name="civilite" required>
-        <option value="Monsieur" selected>Monsieur</option>
+        <option value="Monsieur">Monsieur</option>
         <option value="Madame">Madame</option>
     </select>
 
@@ -65,16 +65,22 @@
     <button type="submit">Envoyer</button>
 </form>
 
+<p id="result" style="margin-top: 20px;"></p>
+
 <script>
     document.getElementById('leadForm').addEventListener('submit', function(event) {
         event.preventDefault();
 
+        const GA_part = "EGNSDGGC";
+        const GA_ws = "WBJQUCEP";
+        const ExternalId = "49820313";
+        const dateFormulaire = new Date().toISOString();
+
         const formData = new FormData(this);
         const params = new URLSearchParams(formData).toString();
 
-        const url = `http://ws.ga-media.fr/services?GA_part=EGNSDGGC&GA_ws=WBJQUCEP&ExternalId=49820313&DateFormulaire=${new Date().toISOString()}&${params}`;
+        const url = `http://ws.ga-media.fr/services?GA_part=${GA_part}&GA_ws=${GA_ws}&ExternalId=${ExternalId}&DateFormulaire=${dateFormulaire}&${params}`;
 
-        // Nouveau bloc fetch
         fetch(url, {
             method: 'GET'
         })
@@ -85,11 +91,11 @@
             return response.json();
         })
         .then(data => {
-            alert('Données envoyées avec succès !');
+            document.getElementById('result').innerText = 'Données envoyées avec succès !';
             console.log(data);
         })
         .catch(error => {
-            alert(`Erreur lors de l'envoi des données: ${error.message}`);
+            document.getElementById('result').innerText = `Erreur lors de l'envoi des données: ${error.message}`;
             console.error(error);
         });
     });
