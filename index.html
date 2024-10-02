@@ -3,69 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulaire de Saisie des Leads RI</title>
+    <title>Formulaire de Saisie des Leads</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
             padding: 20px;
-            max-width: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
         }
         label {
             display: block;
-            margin-top: 10px;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #555;
         }
         input, select, button {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus {
+            border-color: #4CAF50;
+            outline: none;
         }
         button {
             background-color: #4CAF50;
             color: white;
             border: none;
             cursor: pointer;
+            font-size: 18px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
         }
         button:hover {
             background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+            color: #d44;
         }
     </style>
 </head>
 <body>
 
-<h2>Formulaire de Saisie des Leads RI</h2>
-<form id="leadForm">
-    <label for="nom">Nom</label>
-    <input type="text" id="nom" name="nom" required>
+<div class="form-container">
+    <h2>Formulaire de Saisie des Leads</h2>
+    <form id="leadForm">
+        <label for="nom">Nom</label>
+        <input type="text" id="nom" name="nom" required>
 
-    <label for="prenom">Prénom</label>
-    <input type="text" id="prenom" name="prenom" required>
+        <label for="prenom">Prénom</label>
+        <input type="text" id="prenom" name="prenom" required>
 
-    <label for="civilite">Civilité</label>
-    <select id="civilite" name="civilite" required>
-        <option value="Monsieur">Monsieur</option>
-        <option value="Madame">Madame</option>
-    </select>
+        <label for="civilite">Civilité</label>
+        <select id="civilite" name="civilite" required>
+            <option value="Monsieur">Monsieur</option>
+            <option value="Madame">Madame</option>
+        </select>
 
-    <label for="adresse">Adresse</label>
-    <input type="text" id="adresse" name="adresse" required>
+        <label for="adresse">Adresse</label>
+        <input type="text" id="adresse" name="adresse" required>
 
-    <label for="cp">Code Postal</label>
-    <input type="text" id="cp" name="cp" required>
+        <label for="cp">Code Postal</label>
+        <input type="text" id="cp" name="cp" required>
 
-    <label for="ville">Ville</label>
-    <input type="text" id="ville" name="ville" required>
+        <label for="ville">Ville</label>
+        <input type="text" id="ville" name="ville" required>
 
-    <label for="telephone">Téléphone</label>
-    <input type="tel" id="telephone" name="telephone" required>
+        <label for="telephone">Téléphone</label>
+        <input type="tel" id="telephone" name="telephone" required>
 
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" required>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
 
-    <button type="submit">Envoyer</button>
-</form>
+        <button type="submit">Envoyer les données</button>
+    </form>
 
-<p id="result" style="margin-top: 20px;"></p>
+    <p id="result"></p>
+</div>
 
 <script>
     document.getElementById('leadForm').addEventListener('submit', function(event) {
@@ -92,11 +129,9 @@
         })
         .then(data => {
             document.getElementById('result').innerText = 'Données envoyées avec succès !';
-            console.log(data);
         })
         .catch(error => {
             document.getElementById('result').innerText = `Erreur lors de l'envoi des données: ${error.message}`;
-            console.error(error);
         });
     });
 </script>
