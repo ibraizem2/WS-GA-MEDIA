@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Devlink : Formulaire de Lead : Radiateurs à inertie</title>
+    <title>Devlink : Formulaire de Lead Radiateurs à inertie</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -74,16 +74,22 @@
 
         const url = `http://ws.ga-media.fr/services?GA_part=EGNSDGGC&GA_ws=WBJQUCEP&ExternalId=49820313&DateFormulaire=${new Date().toISOString()}&${params}`;
 
+        // Nouveau bloc fetch
         fetch(url, {
             method: 'GET'
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erreur ${response.status}: ${response.statusText}`);
+            }
+            return response.json();
+        })
         .then(data => {
             alert('Données envoyées avec succès !');
             console.log(data);
         })
         .catch(error => {
-            alert('Erreur lors de l\'envoi des données.');
+            alert(`Erreur lors de l'envoi des données: ${error.message}`);
             console.error(error);
         });
     });
